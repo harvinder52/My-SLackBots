@@ -2,6 +2,7 @@ import slack
 import os
 from pathlib import Path
 from dotenv import load_dotenv
+import re
 from flask import Flask
 from slackeventsapi import SlackEventAdapter
 
@@ -22,12 +23,22 @@ def message(payload):
     text = event.get('text')
     user = event.get('user')
     if BOT_ID != user_id:
-       string = "bots";
+       
+       link1 = '<https://media.giphy.com/media/dkGhBWE3SyzXW/giphy.gif|Hell YEAH!>'
+       link2 = '< https://media.giphy.com/media/3o7abGQa0aRJUurpII/giphy.gif|Great Work!>'
+       string = " bots";
        if string in text:
-            
-         client.chat_postMessage(channel = channel_id , text="congratulations you found x bots")
-       else:
-         client.chat_postMessage(channel = channel_id , text="no bots")
+         d = re.search('([\d,]*)([\D]*)(bots)',text)
+         d1= re.search('(bots)([\d,]*)([\D]*)',text)
+         noOfBots = (d.group(1))
+         if (noOfBots ==""):
+           noOfBots="0";  
+           client.chat_postMessage(channel = channel_id , text=link+" Keep finding those pesky bots")
+         else:
+           client.chat_postMessage(channel = channel_id , text="congratulations you found "+noOfBots+" bots "+link2)
+
+       
+         
 
 
 
