@@ -33,7 +33,7 @@ def message(payload):
          noOfBots = (d.group(1))
          if (noOfBots ==""):
            noOfBots="0";  
-           client.chat_postMessage(channel = channel_id , text=link+" Keep finding those pesky bots")
+           client.chat_postMessage(channel = channel_id , text=link1+" Keep finding those pesky bots")
          else:
            client.chat_postMessage(channel = channel_id , text="congratulations you found "+noOfBots+" bots "+link2)
 
